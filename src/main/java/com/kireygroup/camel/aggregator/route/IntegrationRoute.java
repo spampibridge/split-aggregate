@@ -21,6 +21,7 @@ public class IntegrationRoute extends EndpointRouteBuilder {
 		
 		from(file("data").move("done"))
 			.transacted()
+			.log("${headers[CamelFileNameConsumed]}")
 			.split(body().tokenize(CSV_NEW_LINE)).streaming().stopOnException()
 			.choice()
 				.when(simple(SKIP_HDR_EXPRESSION))
