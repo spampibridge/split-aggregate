@@ -31,10 +31,10 @@ public class IntegrationRoute extends EndpointRouteBuilder {
 					.executorService(new SynchronousExecutorService())
 					.completionSize(BULK_SIZE)
 					.completionPredicate(simple(SPLIT_END_EXPRESSION))
-					.to(direct("logData"));
+					.to(direct("persistData"));
 		
-		from(direct("logData"))
-			.log("${body}")
+		from(direct("persistData"))
+			.log(">> aggregated data: ${body}")
 			.to(jpa("java.util.List").usePersist(true).flushOnSend(true));
 	}
 }
