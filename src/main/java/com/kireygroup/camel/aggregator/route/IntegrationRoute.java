@@ -2,8 +2,11 @@ package com.kireygroup.camel.aggregator.route;
 
 import org.apache.camel.builder.AggregationStrategies;
 import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
+import org.apache.camel.model.dataformat.BindyType;
 import org.apache.camel.util.concurrent.SynchronousExecutorService;
 import org.springframework.stereotype.Component;
+
+import com.kireygroup.camel.aggregator.model.CsvData;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +28,7 @@ public class IntegrationRoute extends EndpointRouteBuilder {
 			.split(body().tokenize(CSV_NEW_LINE)).streaming().stopOnException()
 			.choice()
 				.when(simple(SKIP_HDR_EXPRESSION))
-					.unmarshal("dataFormat")
+					.unmarshal().bindy(BindyType.Csv, CsvData.class)
 					.aggregate(constant(true), AggregationStrategies.groupedBody())
 					.eagerCheckCompletion()
 					.executorService(new SynchronousExecutorService())

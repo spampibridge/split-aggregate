@@ -20,7 +20,7 @@ import lombok.ToString;
 public class CsvData {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
 	@DataField(pos = 1, required = true)
