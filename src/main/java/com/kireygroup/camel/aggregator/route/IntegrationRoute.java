@@ -19,7 +19,7 @@ public class IntegrationRoute extends EndpointRouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		
-		from(file("data").move("done"))
+		from(file("data").move("done").moveFailed("error"))
 			.transacted()
 			.log("${headers[CamelFileNameConsumed]}")
 			.split(body().tokenize(CSV_NEW_LINE)).streaming().stopOnException()
