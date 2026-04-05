@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,10 +19,11 @@ import lombok.ToString;
 @CsvRecord(separator = ";")
 @ToString
 @Entity
+@Table(name = "CSV_DATA", uniqueConstraints = { @UniqueConstraint(columnNames = { "designation", "speed" }) })
 public class CsvData {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
 	@DataField(pos = 1, required = true)
