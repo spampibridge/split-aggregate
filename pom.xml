@@ -16,7 +16,7 @@
 	
 	<properties>
         <java.version>25</java.version>
-        <camel.version>4.19.0</camel.version>
+        <camel.version>4.20.0</camel.version>
     </properties>
     
     <repositories>
